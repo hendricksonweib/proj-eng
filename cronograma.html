@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma - MD Engenharia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
+    <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+    <script src="js/cronograma.js" defer></script>
+    <style>
+        .gantt-container {
+            height: 600px;
+            width: 100%;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        #gantt_here {
+            width: 100%; 
+            height: 100%;
+        }
+        
+        /* Corrigindo estilos que podem interferir com o Gantt */
+        .gantt_container, .gantt_task {
+            max-width: none;
+        }
+        
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjQwIj48cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwMDc4RDQiLz48cmVjdCB4PSI4MCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwMDY4QzQiLz48cmVjdCB4PSIxNTAiIHk9IjEwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDA1OEI0Ii8+PHBhdGggZD0iTTE2MCwxMjBhODAsODAgMCAxLDEgODAsLTgwQTgwLDgwIDAgMCwxIDE2MCwxMjBaIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0cm9rZS13aWR0aD0iNDAiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+        
+        /* Estilos adicionais para o Gantt */
+        .weekend {
+            background-color: #f0f0f0;
+        }
+        
+        .gantt_task_progress {
+            background-color: #4CAF50;
+            opacity: 0.6;
+        }
+        
+        .gantt_task_line.task-completed {
+            background-color: #4CAF50;
+        }
+        
+        .gantt_task_line.task-in-progress {
+            background-color: #2196F3;
+        }
+        
+        .gantt_task_line.task-not-started {
+            background-color: #9E9E9E;
+        }
+        
+        .gantt_task_line.gantt_critical_task {
+            background-color: #FF5252;
+            border-color: #FF1744;
+        }
+        
+        .gantt_task_line.gantt_milestone {
+            background-color: #9C27B0;
+            border-color: #7B1FA2;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                <div class="md-logo h-12 w-12 mr-3"></div>
+                <h1 class="text-2xl font-bold">MD Engenharia</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-blue-200">Início</a></li>
+                    <li><a href="obras.html" class="hover:text-blue-200">Minhas Obras</a></li>
+                    <li><a href="relatorios.html" class="hover:text-blue-200">Relatórios</a></li>
+                    <li><a href="cronograma.html" class="text-blue-200 border-b-2 border-blue-200 pb-1">Cronograma</a></li>
+                    <li><a href="chat.html" class="hover:text-blue-200">Chat</a></li>
+                    <li><a href="planos.html" class="hover:text-blue-200">Planos</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                            <span class="font-medium">JS</span>
+                        </div>
+                        <span class="hidden md:inline-block">João Silva</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+                        <div class="py-1">
+                            <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Meu Perfil
+                            </a>
+                            <a href="configuracoes.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Configurações
+                            </a>
+                            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 pb-4">
+            <ul class="container mx-auto px-4 space-y-2">
+                <li><a href="index.html" class="block py-2 hover:text-blue-200">Início</a></li>
+                <li><a href="obras.html" class="block py-2 hover:text-blue-200">Minhas Obras</a></li>
+                <li><a href="relatorios.html" class="block py-2 hover:text-blue-200">Relatórios</a></li>
+                <li><a href="cronograma.html" class="block py-2 text-blue-200">Cronograma</a></li>
+                <li><a href="chat.html" class="block py-2 hover:text-blue-200">Chat</a></li>
+                <li><a href="planos.html" class="block py-2 hover:text-blue-200">Planos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Cronograma</h2>
+            <div class="flex space-x-2">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center" id="novaAtividadeBtn">
+                    <i class="fas fa-plus mr-2"></i> Nova Atividade
+                </button>
+                <div class="relative">
+                    <button id="exportBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fas fa-download mr-2"></i> Exportar
+                    </button>
+                    <div id="exportMenu" class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg hidden z-10">
+                        <div class="py-1">
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" id="exportPDF">
+                                <i class="far fa-file-pdf mr-2 text-red-500"></i> PDF
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" id="exportExcel">
+                                <i class="far fa-file-excel mr-2 text-green-500"></i> Excel
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" id="exportPNG">
+                                <i class="far fa-file-image mr-2 text-blue-500"></i> Imagem
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seletor de Obra e Filtros -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+                <div class="w-full md:w-auto md:flex-1">
+                    <label for="obraCronograma" class="block text-sm text-gray-600 mb-1">Obra</label>
+                    <select id="obraCronograma" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="1">Residencial Flores</option>
+                        <option value="2">Edifício Comercial Centro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="viewMode" class="block text-sm text-gray-600 mb-1">Visualização</label>
+                    <select id="viewMode" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="day">Dia</option>
+                        <option value="week" selected>Semana</option>
+                        <option value="month">Mês</option>
+                        <option value="quarter">Trimestre</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filterStatus" class="block text-sm text-gray-600 mb-1">Status</label>
+                    <select id="filterStatus" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">Todos</option>
+                        <option value="progress">Em andamento</option>
+                        <option value="planned">Planejado</option>
+                        <option value="completed">Concluído</option>
+                        <option value="delayed">Atrasado</option>
+                    </select>
+                </div>
+                <div class="flex items-end ml-auto">
+                    <button id="showCriticalPathBtn" class="flex items-center px-3 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                        <i class="fas fa-project-diagram mr-2 text-red-500"></i>
+                        <span>Caminho Crítico</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem de versão Premium -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-start">
+            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+            <div>
+                <h3 class="font-semibold text-green-800">Versão Premium Ativa</h3>
+                <p class="text-green-700">Você está utilizando o cronograma avançado com gráficos Gantt, integração de custos financeiros e todas as funcionalidades premium.</p>
+            </div>
+        </div>
+
+        <!-- Abas de Funcionalidades Premium -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="border-b border-gray-200">
+                <div class="flex flex-wrap">
+                    <button class="px-4 py-3 border-b-2 border-blue-500 text-blue-600 font-medium bg-gray-50" id="tabGantt">
+                        Gráfico Gantt
+                    </button>
+                    <button class="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium" id="tabFinanceiro">
+                        Acompanhamento Financeiro
+                    </button>
+                    <button class="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium" id="tabRecursos">
+                        Alocação de Recursos
+                    </button>
+                    <button class="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium" id="tabRelatorios">
+                        Relatórios
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagrama de Gantt -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6" id="ganttContent">
+            <div class="p-4 border-b">
+                <h3 class="text-lg font-bold text-gray-800">Gráfico Gantt</h3>
+            </div>
+            <div class="gantt-container">
+                <div id="gantt_here"></div>
+            </div>
+        </div>
+
+        <!-- Acompanhamento Financeiro (Conteúdo Premium) -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6 hidden" id="financeiroContent">
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Acompanhamento Financeiro de Obra</h3>
+                
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-medium">Orçamento Total:</span>
+                        <span class="text-xl font-bold text-gray-800">R$ 1.250.000,00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-medium">Despesas Realizadas:</span>
+                        <span class="text-xl font-bold text-red-600">R$ 450.000,00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-medium">Saldo:</span>
+                        <span class="text-xl font-bold text-green-600">R$ 800.000,00</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h4 class="text-md font-bold text-gray-700 mb-2">Custos por Etapa</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <canvas id="custosEtapaChart" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-md font-bold text-gray-700 mb-2">Evolução de Custos</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <canvas id="evolucaoCustosChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="text-md font-bold text-gray-700 mb-2">Detalhamento de Custos por Etapa</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Etapa</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Orçado (R$)</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Realizado (R$)</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo (R$)</th>
+                                <th class="px-4 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Progresso</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Fundação</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    0,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">100%</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Estrutura</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    350.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    250.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    100.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">70%</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Alvenaria</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    0,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">0%</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Instalações</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    300.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    0,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    300.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">0%</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Acabamento</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    0,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">0%</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alocação de Recursos (Conteúdo Premium) -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6 hidden" id="recursosContent">
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Alocação de Recursos</h3>
+                
+                <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Adicionar Recurso
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recurso</th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                                <th class="px-4 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Alocação</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Custo/Hora</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Horas Alocadas</th>
+                                <th class="px-4 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Custo Total</th>
+                                <th class="px-4 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Carlos Ferreira</div>
+                                    <div class="text-xs text-gray-500">Engenheiro Civil</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-gray-600">
+                                    Profissional
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">80%</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 120,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    160h
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 19.200,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-center">
+                                    <button class="text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Betoneira 350L</div>
+                                    <div class="text-xs text-gray-500">Equipamento</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-gray-600">
+                                    Equipamento
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">60%</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 15,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    120h
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 1.800,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-center">
+                                    <button class="text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Equipe Alvenaria</div>
+                                    <div class="text-xs text-gray-500">3 pedreiros, 2 serventes</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-gray-600">
+                                    Equipe
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 10%"></div>
+                                    </div>
+                                    <div class="text-center text-xs mt-1">10%</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 250,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    200h
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-right text-gray-600">
+                                    R$ 50.000,00
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-center">
+                                    <button class="text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></button>
+                                    <button class="text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relatórios Premium -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6 hidden" id="relatoriosContent">
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Relatórios Avançados</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <a href="#" class="bg-blue-50 p-4 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-file-pdf text-2xl text-blue-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório Geral de Progresso</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Visão completa do andamento da obra com gráficos e análises.</p>
+                    </a>
+                    <a href="#" class="bg-green-50 p-4 rounded-lg border border-green-100 hover:bg-green-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-line text-2xl text-green-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório Financeiro</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Análise detalhada de custos, orçamentos e desvios.</p>
+                    </a>
+                    <a href="#" class="bg-purple-50 p-4 rounded-lg border border-purple-100 hover:bg-purple-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-calendar-alt text-2xl text-purple-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório de Cronograma</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Análise de prazos, atrasos e caminho crítico do projeto.</p>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="#" class="bg-red-50 p-4 rounded-lg border border-red-100 hover:bg-red-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-exclamation-triangle text-2xl text-red-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório de Riscos</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Identificação e análise de riscos potenciais da obra.</p>
+                    </a>
+                    <a href="#" class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 hover:bg-yellow-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-users text-2xl text-yellow-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório de Recursos</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Análise de utilização e produtividade dos recursos.</p>
+                    </a>
+                    <a href="#" class="bg-indigo-50 p-4 rounded-lg border border-indigo-100 hover:bg-indigo-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-cogs text-2xl text-indigo-500 mr-3"></i>
+                            <h4 class="font-medium">Relatório Personalizado</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Crie relatórios customizados com os dados que precisar.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalhes das Atividades -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="border-b border-gray-200">
+                <div class="flex">
+                    <button class="px-4 py-3 border-b-2 border-blue-500 text-blue-600 font-medium">
+                        Atividades
+                    </button>
+                    <button class="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                        Dependências
+                    </button>
+                    <button class="px-4 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                        Recursos
+                    </button>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Atividade
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Início
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Término
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Duração
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Responsável
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Progresso
+                                </th>
+                                <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Atividade 1 -->
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Fundação</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    10/01/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    25/02/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    45 dias
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    Carlos Ferreira
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                        Concluído
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Atividade 2 -->
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Estrutura</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    01/03/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    30/05/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    90 dias
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    Roberto Alves
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                        Em andamento
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Atividade 3 -->
+                            <tr>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="font-medium text-gray-900">Alvenaria</div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    15/05/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    30/07/2023
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    75 dias
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+                                    Maria Costa
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+                                        Planejado
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 10%"></div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nova Atividade -->
+    <div id="modalNovaAtividade" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <div class="flex items-center justify-between border-b p-4">
+                <h3 class="text-xl font-bold text-gray-800">Adicionar Nova Atividade</h3>
+                <button id="fecharModalBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <form id="novaAtividadeForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="nomeAtividade" class="block text-gray-700 font-medium mb-2">Nome da Atividade *</label>
+                            <input type="text" id="nomeAtividade" name="nomeAtividade" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="tipoAtividade" class="block text-gray-700 font-medium mb-2">Tipo *</label>
+                            <select id="tipoAtividade" name="tipoAtividade" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="task">Tarefa</option>
+                                <option value="milestone">Marco</option>
+                                <option value="project">Projeto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label for="dataInicio" class="block text-gray-700 font-medium mb-2">Data de Início *</label>
+                            <input type="date" id="dataInicio" name="dataInicio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="dataFim" class="block text-gray-700 font-medium mb-2">Data de Término *</label>
+                            <input type="date" id="dataFim" name="dataFim" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="duracao" class="block text-gray-700 font-medium mb-2">Duração (dias) *</label>
+                            <input type="number" id="duracao" name="duracao" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="responsavel" class="block text-gray-700 font-medium mb-2">Responsável *</label>
+                            <input type="text" id="responsavel" name="responsavel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="progresso" class="block text-gray-700 font-medium mb-2">Progresso (%)</label>
+                            <input type="number" id="progresso" name="progresso" min="0" max="100" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="dependencias" class="block text-gray-700 font-medium mb-2">Dependências</label>
+                        <select id="dependencias" name="dependencias" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" multiple>
+                            <option value="1">Fundação</option>
+                            <option value="2">Estrutura</option>
+                            <option value="3">Alvenaria</option>
+                        </select>
+                        <p class="text-sm text-gray-500 mt-1">Segure Ctrl para selecionar múltiplas atividades</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="descricaoAtividade" class="block text-gray-700 font-medium mb-2">Descrição</label>
+                        <textarea id="descricaoAtividade" name="descricaoAtividade" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="cancelarNovaAtividade" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Adicionar Atividade</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-blue-900 text-white py-6 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-blue-300">
+                <p>&copy; 2023 MD Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

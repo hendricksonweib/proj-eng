@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios Fotográficos - MD Engenharia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/relatorios.js" defer></script>
+    <style>
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTAwcHgiIGhlaWdodD0iNTAwcHgiIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3QgeD0iNTAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzAwNzhENCI+PC9yZWN0PgogICAgICAgIDxyZWN0IHg9IjEzMCIgeT0iMTAwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjUwIiBmaWxsPSIjMDA2OEM0Ij48L3JlY3Q+CiAgICAgICAgPHJlY3QgeD0iMjEwIiB5PSIxMDAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMwMDU4QjQiPjwvcmVjdD4KICAgICAgICA8cGF0aCBkPSJNMzgwLDIyNSBDMzgwLDI4OCAzMzAsIDM0MCAyNjUsMzQwIEMyMDAsMzQwIDE1MCwyODggMTUwLDIyNSBDMTUwLDE2MiAyMDAsMTEwIDI2NSwxMTAgQzMzMCwxMTAgMzgwLDE2MiAzODAsMjI1IFoiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI0MCIgZmlsbD0ibm9uZSI+PC9wYXRoPgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0MTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMiPgogICAgICAgICAgICBNRCBFTkdFTkhBUklBCiAgICAgICAgPC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0NTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzMzMyI+CiAgICAgICAgICAgIENPTlNUUlVDw5VFUyBFIEdFUkVOQ0lBTUVOVE8gREUgUFJPSkVUT1MKICAgICAgICA8L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPg==');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+        
+        /* Imagens temporárias para a página */
+        .temp-img {
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .temp-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,120,212,0.2) 0%, rgba(0,0,0,0) 100%);
+        }
+        
+        .relatorio-img {
+            height: 160px;
+        }
+        
+        /* Imagens específicas */
+        .relatorio-semanal {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTYwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjQwIiB5PSIyMCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI5MCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNDUsMzBMMTU1LDMwIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik00NSw0MEwxNTUsNDAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBhdGggZD0iTTQ1LDUwTDE1NSw1MCIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNNDUsNjBMMTU1LDYwIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik00NSw3MEwxNTUsNzAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBhdGggZD0iTTQ1LDgwTDE1NSw4MCIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNNDUsOTBMMTU1LDkwIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik00NSwxMDBMMTU1LDEwMCIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjEiLz48Y2lyY2xlIGN4PSIxNjUiIGN5PSIzMCIgcj0iMTAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHRleHQgeD0iMTAwIiB5PSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzAwNzhENCIgZm9udC13ZWlnaHQ9ImJvbGQiPlJlbGF0w7NyaW8gU2VtYW5hbDwvdGV4dD48L3N2Zz4=');
+            background-size: cover;
+        }
+        
+        .relatorio-fundacao {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTYwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjQwIiB5PSI3MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIzMCIgeT0iNjAiIHdpZHRoPSIxNDAiIGhlaWdodD0iMTAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMjAiIHk9IjUwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjEwIiB5PSI0MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAsODBMNjAsOTAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBhdGggZD0iTTcwLDkwTDgwLDgwIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik05MCw4MEwxMDAsOTAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBhdGggZD0iTTExMCw5MEwxMjAsODAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBhdGggZD0iTTEzMCw4MEwxNDAsOTAiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMTAwIiB5PSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzAwNzhENCIgZm9udC13ZWlnaHQ9ImJvbGQiPkZ1bmRhw6fDo28gQ29uY2x1w61kYTwvdGV4dD48L3N2Zz4=');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                <div class="md-logo h-12 w-12 mr-3"></div>
+                <h1 class="text-2xl font-bold">MD Engenharia</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-blue-200">Início</a></li>
+                    <li><a href="obras.html" class="hover:text-blue-200">Minhas Obras</a></li>
+                    <li><a href="relatorios.html" class="text-blue-200 border-b-2 border-blue-200 pb-1">Relatórios</a></li>
+                    <li><a href="cronograma.html" class="hover:text-blue-200">Cronograma</a></li>
+                    <li><a href="chat.html" class="hover:text-blue-200">Chat</a></li>
+                    <li><a href="planos.html" class="hover:text-blue-200">Planos</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                            <span class="font-medium">JS</span>
+                        </div>
+                        <span class="hidden md:inline-block">João Silva</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+                        <div class="py-1">
+                            <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Meu Perfil
+                            </a>
+                            <a href="configuracoes.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Configurações
+                            </a>
+                            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 pb-4">
+            <ul class="container mx-auto px-4 space-y-2">
+                <li><a href="index.html" class="block py-2 hover:text-blue-200">Início</a></li>
+                <li><a href="obras.html" class="block py-2 hover:text-blue-200">Minhas Obras</a></li>
+                <li><a href="relatorios.html" class="block py-2 text-blue-200">Relatórios</a></li>
+                <li><a href="cronograma.html" class="block py-2 hover:text-blue-200">Cronograma</a></li>
+                <li><a href="chat.html" class="block py-2 hover:text-blue-200">Chat</a></li>
+                <li><a href="planos.html" class="block py-2 hover:text-blue-200">Planos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Relatórios Fotográficos</h2>
+            <div class="flex space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar relatório..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center" id="novoRelatorioBtn">
+                    <i class="fas fa-plus mr-2"></i> Novo Relatório
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+                <div>
+                    <label for="obraFilter" class="block text-sm text-gray-600 mb-1">Obra</label>
+                    <select id="obraFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="todas">Todas as obras</option>
+                        <option value="1">Residencial Flores</option>
+                        <option value="2">Edifício Comercial Centro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="periodoFilter" class="block text-sm text-gray-600 mb-1">Período</label>
+                    <select id="periodoFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="todos">Todos</option>
+                        <option value="ultimos7">Últimos 7 dias</option>
+                        <option value="ultimos30">Últimos 30 dias</option>
+                        <option value="ultimos90">Últimos 90 dias</option>
+                        <option value="personalizado">Personalizado...</option>
+                    </select>
+                </div>
+                <div id="periodoPersonalizado" class="hidden">
+                    <label for="dataInicio" class="block text-sm text-gray-600 mb-1">De</label>
+                    <input type="date" id="dataInicio" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div id="periodoPersonalizadoFim" class="hidden">
+                    <label for="dataFim" class="block text-sm text-gray-600 mb-1">Até</label>
+                    <input type="date" id="dataFim" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="sortFilter" class="block text-sm text-gray-600 mb-1">Ordenar por</label>
+                    <select id="sortFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="recentes">Mais recentes</option>
+                        <option value="antigos">Mais antigos</option>
+                        <option value="obra">Nome da obra</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem de versão Premium -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-start">
+            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+            <div>
+                <h3 class="font-semibold text-green-800">Versão Premium Ativa</h3>
+                <p class="text-green-700">Você tem acesso a todos os recursos avançados de relatórios, incluindo: gráficos de progresso, campos personalizáveis, exportação em múltiplos formatos e personalização com sua marca.</p>
+            </div>
+        </div>
+
+        <!-- Opções avançadas de relatórios (Premium) -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Opções Avançadas</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label for="tipoRelatorio" class="block text-sm text-gray-600 mb-1">Tipo de Relatório</label>
+                    <select id="tipoRelatorio" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                        <option value="todos">Todos os tipos</option>
+                        <option value="progresso">Progresso Semanal</option>
+                        <option value="etapa">Conclusão de Etapa</option>
+                        <option value="qualidade">Controle de Qualidade</option>
+                        <option value="seguranca">Segurança do Trabalho</option>
+                        <option value="mediacao">Medição</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="formatoExportacao" class="block text-sm text-gray-600 mb-1">Formato de Exportação</label>
+                    <select id="formatoExportacao" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="word">Word</option>
+                        <option value="powerpoint">PowerPoint</option>
+                        <option value="jpg">Imagens (JPG)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="includeGraficos" class="block text-sm text-gray-600 mb-1">Incluir Gráficos</label>
+                    <div class="flex items-center mt-2">
+                        <input type="checkbox" id="includeGraficos" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="includeGraficos" class="ml-2 text-gray-700">Gráficos de Progresso</label>
+                    </div>
+                </div>
+                <div>
+                    <label for="usarLogo" class="block text-sm text-gray-600 mb-1">Personalização</label>
+                    <div class="flex items-center mt-2">
+                        <input type="checkbox" id="usarLogo" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                        <label for="usarLogo" class="ml-2 text-gray-700">Incluir Logo da Empresa</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Relatórios -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Relatório 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="h-40 bg-gray-300 relative">
+                    <div class="temp-img relatorio-img relatorio-semanal w-full h-full"></div>
+                    <div class="absolute top-0 right-0 m-2">
+                        <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">PDF</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Relatório Semanal - Residencial Flores</h3>
+                    <div class="flex items-center text-gray-600 mb-1">
+                        <i class="fas fa-building mr-2"></i>
+                        <span>Obra: Residencial Flores</span>
+                    </div>
+                    <div class="flex items-center text-gray-600 mb-3">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>Data: 15/05/2023</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-sm text-gray-500">Conteúdo</span>
+                        <ul class="text-sm text-gray-600 mt-1">
+                            <li class="flex items-center">
+                                <i class="fas fa-camera text-blue-500 mr-2"></i> 12 fotos
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i> 3 observações
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Criado por: João Silva</span>
+                        <div class="flex space-x-2">
+                            <a href="visualizar-relatorio.html?id=1" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="#" class="text-green-600 hover:text-green-800">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-gray-800">
+                                <i class="fas fa-share-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relatório 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="h-40 bg-gray-300 relative">
+                    <div class="temp-img relatorio-img relatorio-fundacao w-full h-full"></div>
+                    <div class="absolute top-0 right-0 m-2">
+                        <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">PDF</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fundação Concluída - Edifício Comercial</h3>
+                    <div class="flex items-center text-gray-600 mb-1">
+                        <i class="fas fa-building mr-2"></i>
+                        <span>Obra: Edifício Comercial Centro</span>
+                    </div>
+                    <div class="flex items-center text-gray-600 mb-3">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>Data: 05/04/2023</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-sm text-gray-500">Conteúdo</span>
+                        <ul class="text-sm text-gray-600 mt-1">
+                            <li class="flex items-center">
+                                <i class="fas fa-camera text-blue-500 mr-2"></i> 8 fotos
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i> 2 observações
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Criado por: João Silva</span>
+                        <div class="flex space-x-2">
+                            <a href="visualizar-relatorio.html?id=2" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="#" class="text-green-600 hover:text-green-800">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-gray-800">
+                                <i class="fas fa-share-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adicionar Novo Relatório (Card) -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center h-96">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-plus text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Criar Novo Relatório</h3>
+                    <p class="text-gray-600 mb-4">Documente o progresso da sua obra com fotos e observações</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg" id="cardNovoRelatorioBtn">
+                        Criar Relatório
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Novo Relatório -->
+    <div id="modalNovoRelatorio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden overflow-y-auto py-5">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl my-5">
+            <div class="flex items-center justify-between border-b p-4 sticky top-0 bg-white z-10">
+                <h3 class="text-xl font-bold text-gray-800">Criar Novo Relatório Fotográfico</h3>
+                <button id="fecharModalBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 max-h-[70vh] overflow-y-auto">
+                <form id="novoRelatorioForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="tituloRelatorio" class="block text-gray-700 font-medium mb-2">Título do Relatório *</label>
+                            <input type="text" id="tituloRelatorio" name="tituloRelatorio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="obraRelatorio" class="block text-gray-700 font-medium mb-2">Obra *</label>
+                            <select id="obraRelatorio" name="obraRelatorio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Selecione</option>
+                                <option value="1">Residencial Flores</option>
+                                <option value="2">Edifício Comercial Centro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="dataRelatorio" class="block text-gray-700 font-medium mb-2">Data do Relatório *</label>
+                            <input type="date" id="dataRelatorio" name="dataRelatorio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="tipoRelatorio" class="block text-gray-700 font-medium mb-2">Tipo de Relatório *</label>
+                            <select id="tipoRelatorioModal" name="tipoRelatorioModal" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="progresso">Progresso Semanal</option>
+                                <option value="etapa">Conclusão de Etapa</option>
+                                <option value="qualidade">Controle de Qualidade</option>
+                                <option value="seguranca">Segurança do Trabalho</option>
+                                <option value="mediacao">Medição</option>
+                                <option value="personalizado">Personalizado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="descricaoRelatorio" class="block text-gray-700 font-medium mb-2">Descrição do Relatório *</label>
+                        <textarea id="descricaoRelatorio" name="descricaoRelatorio" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Fotos *</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                            <input type="file" id="fotosRelatorio" name="fotosRelatorio" class="hidden" accept="image/*" multiple>
+                            <label for="fotosRelatorio" class="cursor-pointer">
+                                <div class="py-8">
+                                    <i class="fas fa-camera text-gray-400 text-4xl mb-4"></i>
+                                    <p class="text-gray-600">Clique para adicionar fotos ou use a câmera do dispositivo</p>
+                                    <p class="text-gray-500 text-sm mt-2">(Você pode selecionar múltiplas fotos)</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="fotosPreview" class="hidden mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Fotos Selecionadas</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <!-- Aqui serão adicionadas as miniaturas das fotos via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Opções avançadas premium -->
+                    <div class="mb-4 bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-medium text-blue-800 mb-3">Opções Avançadas (Premium)</h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="incluirGraficos" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <span class="ml-2 block text-gray-700">Incluir Gráficos de Progresso</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="incluirLogo" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" checked>
+                                    <span class="ml-2 block text-gray-700">Incluir Logo da Empresa</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="formatoRelatorio" class="block text-gray-700 font-medium mb-2">Formato de Exportação</label>
+                            <select id="formatoRelatorio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="word">Word</option>
+                                <option value="powerpoint">PowerPoint</option>
+                                <option value="jpg">Imagens (JPG)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Observações</label>
+                        <div id="observacoesContainer">
+                            <div class="border border-gray-300 rounded-lg p-4 mb-2">
+                                <input type="text" placeholder="Título da observação" class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <textarea placeholder="Detalhes da observação" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" id="adicionarObservacao" class="text-blue-600 hover:text-blue-800 mt-2">
+                            <i class="fas fa-plus mr-1"></i> Adicionar outra observação
+                        </button>
+                    </div>
+
+                    <!-- Campos personalizados (Premium) -->
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-gray-700 font-medium">Campos Personalizados</label>
+                            <button type="button" id="adicionarCampoPersonalizado" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-plus mr-1"></i> Adicionar Campo
+                            </button>
+                        </div>
+                        <div id="camposPersonalizadosContainer">
+                            <!-- Aqui serão adicionados os campos personalizados via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="cancelarNovoRelatorio" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Criar Relatório</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-blue-900 text-white py-6 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-blue-300">
+                <p>&copy; 2023 MD Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

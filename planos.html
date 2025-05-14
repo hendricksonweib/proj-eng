@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos - MD Engenharia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/planos.js" defer></script>
+    <style>
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjQwIj48cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwMDc4RDQiLz48cmVjdCB4PSI4MCIgeT0iMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwMDY4QzQiLz48cmVjdCB4PSIxNTAiIHk9IjEwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDA1OEI0Ii8+PHBhdGggZD0iTTE2MCwxMjBhODAsODAgMCAxLDEgODAsLTgwQTgwLDgwIDAgMCwxIDE2MCwxMjBaIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0cm9rZS13aWR0aD0iNDAiLz48L3N2Zz4=');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                <div class="md-logo h-12 w-12 mr-3"></div>
+                <h1 class="text-2xl font-bold">MD Engenharia</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-blue-200">Início</a></li>
+                    <li><a href="obras.html" class="hover:text-blue-200">Minhas Obras</a></li>
+                    <li><a href="relatorios.html" class="hover:text-blue-200">Relatórios</a></li>
+                    <li><a href="cronograma.html" class="hover:text-blue-200">Cronograma</a></li>
+                    <li><a href="chat.html" class="hover:text-blue-200">Chat</a></li>
+                    <li><a href="planos.html" class="text-blue-200 border-b-2 border-blue-200 pb-1">Planos</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                            <span class="font-medium">JS</span>
+                        </div>
+                        <span class="hidden md:inline-block">João Silva</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+                        <div class="py-1">
+                            <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Meu Perfil
+                            </a>
+                            <a href="configuracoes.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Configurações
+                            </a>
+                            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 pb-4">
+            <ul class="container mx-auto px-4 space-y-2">
+                <li><a href="index.html" class="block py-2 hover:text-blue-200">Início</a></li>
+                <li><a href="obras.html" class="block py-2 hover:text-blue-200">Minhas Obras</a></li>
+                <li><a href="relatorios.html" class="block py-2 hover:text-blue-200">Relatórios</a></li>
+                <li><a href="cronograma.html" class="block py-2 hover:text-blue-200">Cronograma</a></li>
+                <li><a href="chat.html" class="block py-2 hover:text-blue-200">Chat</a></li>
+                <li><a href="planos.html" class="block py-2 text-blue-200">Planos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Escolha o plano ideal para sua empresa</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">O MD Engenharia oferece opções flexíveis para profissionais e empresas de todos os tamanhos. Compare os planos e escolha o que melhor atende às suas necessidades.</p>
+        </div>
+
+        <!-- Mensagem de plano ativo -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-12 max-w-4xl mx-auto">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-green-500 text-3xl mt-1 mr-4"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-green-800 mb-2">Seu Plano Premium Empresarial está Ativo</h3>
+                    <p class="text-green-700 mb-4">Você está usando o plano Premium Empresarial com acesso a todas as funcionalidades avançadas do sistema. Seu plano inclui:</p>
+                    <ul class="text-green-700 space-y-1 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Obras ilimitadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Relatórios avançados com gráficos e personalização</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Cronograma completo com Gantt e integração financeira</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Portal do cliente personalizado</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Suporte prioritário 24/7</span>
+                        </li>
+                    </ul>
+                    <p class="text-green-700 font-medium">Próxima renovação: 15/12/2023</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seletor de Tipo de Cobrança -->
+        <div class="flex justify-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm w-full max-w-md" role="group">
+                <button type="button" id="cobrancaMensal" class="px-4 sm:px-6 py-3 text-sm font-medium bg-blue-600 text-white rounded-l-lg border border-blue-600 hover:bg-blue-700 flex-1 flex justify-center items-center">
+                    Cobrança Mensal
+                </button>
+                <button type="button" id="cobrancaAnual" class="px-4 sm:px-6 py-3 text-sm font-medium bg-white text-blue-600 rounded-r-lg border border-blue-600 hover:bg-blue-50 flex-1 flex flex-wrap justify-center items-center">
+                    <span>Cobrança Anual</span>
+                    <span class="ml-2 bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap">Economize 20%</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Comparativo de Planos - Estrutura completamente refeita -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 lg:gap-8 mb-16 px-3">
+            <!-- Plano Trial -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full mt-5 pt-2">
+                <div class="p-6 bg-gray-50">
+                    <h3 class="text-xl font-bold text-center mb-2">Versão Trial</h3>
+                    <p class="text-center text-gray-600 mb-4">Ideal para pequenos projetos</p>
+                    <div class="text-center">
+                        <span class="text-4xl font-bold">Grátis</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <ul class="space-y-4 flex-1">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Cadastro de até 2 obras simultâneas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Registro de informações básicas da obra</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Captura de fotos e relatórios simples</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Exportação em formato PDF</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Cronograma básico</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Notificações automáticas de conclusão</span>
+                        </li>
+                        <li class="flex items-start text-gray-400">
+                            <i class="fas fa-times text-gray-300 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Gestão financeira</span>
+                        </li>
+                        <li class="flex items-start text-gray-400">
+                            <i class="fas fa-times text-gray-300 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Portal do cliente</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <a href="cadastro.html" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-medium">Começar Grátis</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plano Premium Padrão -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden relative transform scale-105 z-10 border-2 border-blue-500 flex flex-col h-full mt-8 pt-3">
+                <div class="absolute -top-6 inset-x-0 flex justify-center z-20">
+                    <span class="px-4 py-1 bg-blue-500 text-white text-sm font-bold rounded-full shadow-md whitespace-nowrap">MAIS POPULAR</span>
+                </div>
+                <div class="p-6 bg-blue-50">
+                    <h3 class="text-xl font-bold text-center mb-2">Premium Padrão</h3>
+                    <p class="text-center text-gray-600 mb-4">Para profissionais e pequenas empresas</p>
+                    <div class="text-center">
+                        <div class="pricing-annual hidden">
+                            <span class="text-3xl sm:text-4xl font-bold">R$ 79,90</span>
+                            <span class="text-gray-600">/mês</span>
+                            <p class="text-sm text-gray-500 mt-1">Faturado anualmente (R$ 958,80)</p>
+                        </div>
+                        <div class="pricing-monthly">
+                            <span class="text-3xl sm:text-4xl font-bold">R$ 99,90</span>
+                            <span class="text-gray-600">/mês</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <ul class="space-y-4 flex-1">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Obras ilimitadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Etapas personalizadas para cada obra</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Relatórios fotográficos avançados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Cronograma avançado com Gantt Charts</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Controle financeiro completo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Até 5 usuários</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Acesso limitado para clientes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Suporte por e-mail</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <a href="checkout.html?plan=premium-standard" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-medium">Assinar Agora</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plano Premium Empresarial -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full mt-5 pt-2">
+                <div class="p-6 bg-gray-50">
+                    <h3 class="text-xl font-bold text-center mb-2">Premium Empresarial</h3>
+                    <p class="text-center text-gray-600 mb-4">Para construtoras e grandes projetos</p>
+                    <div class="text-center">
+                        <div class="pricing-annual hidden">
+                            <span class="text-3xl sm:text-4xl font-bold">R$ 159,90</span>
+                            <span class="text-gray-600">/mês</span>
+                            <p class="text-sm text-gray-500 mt-1">Faturado anualmente (R$ 1.918,80)</p>
+                        </div>
+                        <div class="pricing-monthly">
+                            <span class="text-3xl sm:text-4xl font-bold">R$ 199,90</span>
+                            <span class="text-gray-600">/mês</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <ul class="space-y-4 flex-1">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Tudo do Premium Padrão +</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Usuários ilimitados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Permissões avançadas por função</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Portal do cliente completo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Integração com calendários externos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Chat interno por obra</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Relatórios personalizados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+                            <span>Suporte prioritário 24/7</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <a href="checkout.html?plan=premium-enterprise" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-medium">Assinar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela Comparativa Detalhada -->
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Comparativo detalhado de funcionalidades</h3>
+        <div class="overflow-x-auto bg-white rounded-lg shadow-md mb-16">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-4 bg-gray-50 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Funcionalidade</th>
+                        <th class="px-6 py-4 bg-gray-50 text-center text-sm font-medium text-gray-500 uppercase tracking-wider">Trial</th>
+                        <th class="px-6 py-4 bg-blue-50 text-center text-sm font-medium text-blue-600 uppercase tracking-wider">Premium Padrão</th>
+                        <th class="px-6 py-4 bg-gray-50 text-center text-sm font-medium text-gray-500 uppercase tracking-wider">Premium Empresarial</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Grupo: Cadastro e Gerenciamento de Obras -->
+                    <tr class="bg-gray-100">
+                        <td colspan="4" class="px-6 py-3 text-left text-sm font-bold text-gray-700">Cadastro e Gerenciamento de Obras</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Número de obras simultâneas</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-700">Até 2</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-700">Ilimitado</td>
+                        <td class="px-6 py-3 text-center text-sm text-gray-700">Ilimitado</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Informações básicas da obra</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Etapas personalizadas</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Categorização por tipo/cliente/status</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+
+                    <!-- Grupo: Relatórios Fotográficos -->
+                    <tr class="bg-gray-100">
+                        <td colspan="4" class="px-6 py-3 text-left text-sm font-bold text-gray-700">Relatórios Fotográficos</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Captura de fotos pelo aplicativo</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Relatórios com fotos e anotações</td>
+                        <td class="px-6 py-3 text-center">Simples</td>
+                        <td class="px-6 py-3 text-center">Avançados</td>
+                        <td class="px-6 py-3 text-center">Personalizáveis</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Formatos de exportação</td>
+                        <td class="px-6 py-3 text-center">PDF</td>
+                        <td class="px-6 py-3 text-center">PDF, Excel, PNG</td>
+                        <td class="px-6 py-3 text-center">Múltiplos formatos</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Fotos em alta resolução</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Gráficos de progresso</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Personalização com logo</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+
+                    <!-- Grupo: Gerenciamento de Cronograma -->
+                    <tr class="bg-gray-100">
+                        <td colspan="4" class="px-6 py-3 text-left text-sm font-bold text-gray-700">Gerenciamento de Cronograma</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Tipo de cronograma</td>
+                        <td class="px-6 py-3 text-center">Básico</td>
+                        <td class="px-6 py-3 text-center">Avançado</td>
+                        <td class="px-6 py-3 text-center">Avançado</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Integração com custos financeiros</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Visualização de Gantt Charts</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Acompanhamento físico-financeiro</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+
+                    <!-- Outros grupos... -->
+
+                    <!-- Suporte -->
+                    <tr class="bg-gray-100">
+                        <td colspan="4" class="px-6 py-3 text-left text-sm font-bold text-gray-700">Suporte</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Canais de suporte</td>
+                        <td class="px-6 py-3 text-center">E-mail</td>
+                        <td class="px-6 py-3 text-center">E-mail, Chat</td>
+                        <td class="px-6 py-3 text-center">E-mail, Chat, Telefone</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Tempo de resposta</td>
+                        <td class="px-6 py-3 text-center">72h</td>
+                        <td class="px-6 py-3 text-center">24h</td>
+                        <td class="px-6 py-3 text-center">4h</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 text-left text-sm text-gray-700">Suporte prioritário</td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-times text-red-500"></i></td>
+                        <td class="px-6 py-3 text-center"><i class="fas fa-check text-green-500"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Perguntas Frequentes -->
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Perguntas Frequentes</h3>
+        <div class="space-y-4 max-w-4xl mx-auto mb-16">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-medium text-gray-800 flex justify-between items-center focus:outline-none" id="faq1Btn">
+                    <span>Como funciona o período trial?</span>
+                    <i class="fas fa-chevron-down text-gray-500 transition-transform transform"></i>
+                </button>
+                <div class="px-6 py-4 bg-gray-50 hidden" id="faq1">
+                    <p class="text-gray-700">A versão Trial do GestãoObras é gratuita e permite que você teste as funcionalidades básicas do sistema. Você pode utilizar o Trial por tempo indeterminado, com a limitação de cadastrar no máximo 2 obras simultaneamente. Para acessar todas as funcionalidades e gerenciar obras ilimitadas, é necessário assinar um dos planos Premium.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-medium text-gray-800 flex justify-between items-center focus:outline-none" id="faq2Btn">
+                    <span>Posso mudar de plano depois?</span>
+                    <i class="fas fa-chevron-down text-gray-500 transition-transform transform"></i>
+                </button>
+                <div class="px-6 py-4 bg-gray-50 hidden" id="faq2">
+                    <p class="text-gray-700">Sim, você pode fazer upgrade ou downgrade do seu plano a qualquer momento. Se você fizer upgrade, a mudança será aplicada imediatamente e o valor proporcional será cobrado. Se você fizer downgrade, a mudança será aplicada no próximo ciclo de cobrança.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-medium text-gray-800 flex justify-between items-center focus:outline-none" id="faq3Btn">
+                    <span>Qual a diferença entre a cobrança mensal e anual?</span>
+                    <i class="fas fa-chevron-down text-gray-500 transition-transform transform"></i>
+                </button>
+                <div class="px-6 py-4 bg-gray-50 hidden" id="faq3">
+                    <p class="text-gray-700">Na cobrança anual, você recebe um desconto de 20% em comparação ao valor mensal. O valor é cobrado uma única vez por ano, garantindo economia e praticidade. A cobrança mensal oferece mais flexibilidade, sendo ideal para projetos de curta duração ou para quem prefere parcelar o investimento.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="w-full px-6 py-4 text-left font-medium text-gray-800 flex justify-between items-center focus:outline-none" id="faq4Btn">
+                    <span>Como funciona o acesso para clientes?</span>
+                    <i class="fas fa-chevron-down text-gray-500 transition-transform transform"></i>
+                </button>
+                <div class="px-6 py-4 bg-gray-50 hidden" id="faq4">
+                    <p class="text-gray-700">No plano Premium Padrão, você pode conceder acesso limitado aos seus clientes, permitindo que visualizem o progresso das obras e relatórios específicos. No plano Premium Empresarial, o Portal do Cliente é completo, oferecendo acesso personalizado com diferentes níveis de permissão e a possibilidade de interação direta através do chat interno.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chamada para Ação -->
+        <div class="bg-blue-600 rounded-lg shadow-lg p-8 text-center">
+            <h3 class="text-2xl font-bold text-white mb-4">Pronto para transformar a gestão das suas obras?</h3>
+            <p class="text-blue-100 mb-6 max-w-3xl mx-auto">Experimente o GestãoObras gratuitamente ou escolha o plano Premium ideal para sua empresa. Não há compromisso de permanência e você pode cancelar a qualquer momento.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="cadastro.html" class="px-8 py-3 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50">Começar Grátis</a>
+                <a href="#pricing" class="px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-700">Ver Planos Premium</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-8 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">MD Engenharia</h3>
+                    <p class="text-blue-200">Construções e Gerenciamento de Projetos com excelência.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-blue-200 hover:text-white">Início</a></li>
+                        <li><a href="recursos.html" class="text-blue-200 hover:text-white">Recursos</a></li>
+                        <li><a href="planos.html" class="text-blue-200 hover:text-white">Planos</a></li>
+                        <li><a href="contato.html" class="text-blue-200 hover:text-white">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contato</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> contato@gestaoobras.com</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> (11) 1234-5678</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Redes Sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-8 pt-6 text-center text-blue-300">
+                <p>&copy; 2023 MD Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

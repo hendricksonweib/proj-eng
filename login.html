@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MD Engenharia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/login.js" defer></script>
+    <style>
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTAwcHgiIGhlaWdodD0iNTAwcHgiIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3QgeD0iNTAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzAwNzhENCI+PC9yZWN0PgogICAgICAgIDxyZWN0IHg9IjEzMCIgeT0iMTAwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjUwIiBmaWxsPSIjMDA2OEM0Ij48L3JlY3Q+CiAgICAgICAgPHJlY3QgeD0iMjEwIiB5PSIxMDAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMwMDU4QjQiPjwvcmVjdD4KICAgICAgICA8cGF0aCBkPSJNMzgwLDIyNSBDMzgwLDI4OCAzMzAsIDM0MCAyNjUsMzQwIEMyMDAsMzQwIDE1MCwyODggMTUwLDIyNSBDMTUwLDE2MiAyMDAsMTEwIDI2NSwxMTAgQzMzMCwxMTAgMzgwLDE2MiAzODAsMjI1IFoiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI0MCIgZmlsbD0ibm9uZSI+PC9wYXRoPgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0MTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMiPgogICAgICAgICAgICBNRCBFTkdFTkhBUklBCiAgICAgICAgPC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0NTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzMzMyI+CiAgICAgICAgICAgIENPTlNUUlVDw5VFUyBFIEdFUkVOQ0lBTUVOVE8gREUgUFJPSkVUT1MKICAgICAgICA8L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPg==');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+        /* Ícones incorporados */
+        .google-icon {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHBhdGggZmlsbD0iI0ZGQzEwNyIgZD0iTTQzLjYxMSwyMC4wODNIMjJWMjkuNWgyMS42MTFjLTEuMzM4LDYuNDk0LTcuMDgzLDExLjUtMTQuMTExLDExLjVjLTcuOTk3LDAtMTQuNDk5LTYuNTAyLTE0LjQ5OS0xNC41UzIxLjUwMywxMiwyOS41LDEyYzMuNTUsMCw2Ljc5LDEuMyw5LjMwLDMuNDMxbDYuNDczLTYuNDdDNDAuNzE2LDQuNzcsMzUuNDgsMiwyOS41LDJDMTYuNDk4LDIsNiwxMi40OTgsNiwyNS41UzE2LjQ5OCw0OSwyOS41LDQ5YzExLjQ1OCwwLDIxLTguMDEsMjMuNDA1LTE4LjdsNS4yOTUtOC44MThMMjkuNSwyMS40VjI5LjVIMjJIMjFDMjEsMjkuNSw0My44NzUsMTkuMyw0My42MTEsMjAuMDgzeiIvPjxwYXRoIGZpbGw9IiNGRjNEMDAiIGQ9Ik02LjMwNiwxNC42OTFsMTAuMDc3LDcuNDVDMTcuNTQ3LDE1LjM0LDIzLjExLDEyLDI5LjUsMTJDMzUuNDgsMiw0MC43MTYsNC43Nyw0NS4yNzMsOC45NjFsNi40NzMtNi40N0M0NS40OTgsMi4wMTMsNDIuNTc0LDAsMzkuNSwwSDIwTDYuMzA2LDE0LjY5MXoiLz48cGF0aCBmaWxsPSIjNEFBRjUxIiBkPSJNMjkuNSw0Yy03Ljk5NywwLTE0LjQ5OSw0Ljc0LTE0LjQ5OSwxMC41YzAsNC43OTgsNi43MjksOC44MDQsMTQuNzIxLDguODI5bDIxLjQ4OSw4Ljk3QzQ2LjIxMSwyMS4wMDMsNDIuMjA3LDQsMjkuNSw0eiIvPjxwYXRoIGZpbGw9IiMxOTc2RDIiIGQ9Ik0yNC41LDQzSDM5LjVjMy4wMzgsMCw1LjkyNC0wLjgyNCw4LjM5Ny0yLjI3YzIuNTg2LTEuNTA3LDQuNzI3LTMuNjY1LDYuMjUtNi4yNWMxLjQ0NS0yLjQ3MywyLjI3LTUuMzU4LDIuMjctOC4zOThWMTAuODk1TDQ5LjMxMiwzMkw0MywyMi43MDJMMjQuNSw0M3oiLz48L3N2Zz4=');
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        .microsoft-icon {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMSAyMSI+PHBhdGggZmlsbD0iI0YyNTAyMiIgZD0iTTEgMWg5djloLTl6Ii8+PHBhdGggZmlsbD0iIzdGQkEwMCIgZD0iTTExIDFoOXY5aC05eiIvPjxwYXRoIGZpbGw9IiMwMEE0RUYiIGQ9Ik0xIDFoOXYtOXoiLz48cGF0aCBmaWxsPSIjRkZCOTAwIiBkPSJNMTEgMTFoOXY5aC05eiIvPjwvc3ZnPg==');
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                    <div class="md-logo h-12 w-12 mr-3"></div>
+                    <h1 class="text-2xl font-bold">MD Engenharia</h1>
+                </a>
+                <a href="index.html" class="text-blue-200 hover:text-white">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar para o início
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="max-w-md w-full">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-blue-700 p-6 text-center">
+                    <h2 class="text-2xl font-bold text-white">Acesse sua conta</h2>
+                </div>
+                <div class="p-6">
+                    <form id="loginForm">
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">E-mail</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                </div>
+                                <input type="email" id="email" name="email" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Seu e-mail" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block text-gray-700 font-medium mb-2">Senha</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input type="password" id="password" name="password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Sua senha" required>
+                                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="remember" name="remember" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="remember" class="ml-2 text-sm text-gray-600">Lembrar-me</label>
+                            </div>
+                            <a href="recuperar-senha.html" class="text-sm text-blue-600 hover:underline">Esqueceu a senha?</a>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium">Entrar</button>
+                    </form>
+                    <div class="relative flex py-5 items-center mt-6">
+                        <div class="flex-grow border-t border-gray-300"></div>
+                        <span class="flex-shrink mx-4 text-gray-400">ou</span>
+                        <div class="flex-grow border-t border-gray-300"></div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="w-full flex items-center justify-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+                            <span class="google-icon"></span>
+                            <span>Continuar com Google</span>
+                        </button>
+                        <button class="w-full flex items-center justify-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+                            <span class="microsoft-icon"></span>
+                            <span>Continuar com Microsoft</span>
+                        </button>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">Não tem uma conta? <a href="cadastro.html" class="text-blue-600 hover:underline">Cadastre-se</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-blue-300">
+                <p>&copy; 2023 MD Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

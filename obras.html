@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Obras - MD Engenharia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/obras.js" defer></script>
+    <style>
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTAwcHgiIGhlaWdodD0iNTAwcHgiIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3QgeD0iNTAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzAwNzhENCI+PC9yZWN0PgogICAgICAgIDxyZWN0IHg9IjEzMCIgeT0iMTAwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjUwIiBmaWxsPSIjMDA2OEM0Ij48L3JlY3Q+CiAgICAgICAgPHJlY3QgeD0iMjEwIiB5PSIxMDAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMwMDU4QjQiPjwvcmVjdD4KICAgICAgICA8cGF0aCBkPSJNMzgwLDIyNSBDMzgwLDI4OCAzMzAsIDM0MCAyNjUsMzQwIEMyMDAsMzQwIDE1MCwyODggMTUwLDIyNSBDMTUwLDE2MiAyMDAsMTEwIDI2NSwxMTAgQzMzMCwxMTAgMzgwLDE2MiAzODAsMjI1IFoiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI0MCIgZmlsbD0ibm9uZSI+PC9wYXRoPgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0MTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMiPgogICAgICAgICAgICBNRCBFTkdFTkhBUklBCiAgICAgICAgPC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0NTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzMzMyI+CiAgICAgICAgICAgIENPTlNUUlVDw5VFUyBFIEdFUkVOQ0lBTUVOVE8gREUgUFJPSkVUT1MKICAgICAgICA8L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPg==');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+        
+        /* Imagens temporárias para a página */
+        .temp-img {
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .temp-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,120,212,0.2) 0%, rgba(0,0,0,0) 100%);
+        }
+        
+        .obra-img {
+            height: 160px;
+        }
+        
+        /* Imagens específicas */
+        .obra-residencial {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTYwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI2UwZTBlMCIvPjxwYXRoIGQ9Ik02MCw0MEwxNDAsNDBMMTQwLDEyMEw2MCwxMjBaIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQ1LDYwTDE1NSwyMEwxODUsMTAwTDE1LDE0MFoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC41Ii8+PHRleHQgeD0iMTAwIiB5PSI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMDA3OEQ0IiBmb250LXdlaWdodD0iYm9sZCI+UmVzaWRlbmNpYWwgRmxvcmVzPC90ZXh0Pjwvc3ZnPg==');
+            background-size: cover;
+        }
+        
+        .obra-comercial {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTYwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjQwIiB5PSIyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjcwIiB5PSIyMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjEwMCIgeT0iMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNmZmYiLz48cmVjdCB4PSIxMzAiIHk9IjIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjZmZmIi8+PHRleHQgeD0iMTAwIiB5PSI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMDA3OEQ0IiBmb250LXdlaWdodD0iYm9sZCI+RWRpZsOtY2lvIENvbWVyY2lhbDwvdGV4dD48L3N2Zz4=');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                <div class="md-logo h-12 w-12 mr-3"></div>
+                <h1 class="text-2xl font-bold">MD Engenharia</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-blue-200">Início</a></li>
+                    <li><a href="obras.html" class="text-blue-200 border-b-2 border-blue-200 pb-1">Minhas Obras</a></li>
+                    <li><a href="relatorios.html" class="hover:text-blue-200">Relatórios</a></li>
+                    <li><a href="cronograma.html" class="hover:text-blue-200">Cronograma</a></li>
+                    <li><a href="chat.html" class="hover:text-blue-200">Chat</a></li>
+                    <li><a href="planos.html" class="hover:text-blue-200">Planos</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                            <span class="font-medium">JS</span>
+                        </div>
+                        <span class="hidden md:inline-block">João Silva</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+                        <div class="py-1">
+                            <a href="perfil.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Meu Perfil
+                            </a>
+                            <a href="configuracoes.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Configurações
+                            </a>
+                            <a href="index.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 pb-4">
+            <ul class="container mx-auto px-4 space-y-2">
+                <li><a href="index.html" class="block py-2 hover:text-blue-200">Início</a></li>
+                <li><a href="obras.html" class="block py-2 text-blue-200">Minhas Obras</a></li>
+                <li><a href="relatorios.html" class="block py-2 hover:text-blue-200">Relatórios</a></li>
+                <li><a href="cronograma.html" class="block py-2 hover:text-blue-200">Cronograma</a></li>
+                <li><a href="chat.html" class="block py-2 hover:text-blue-200">Chat</a></li>
+                <li><a href="planos.html" class="block py-2 hover:text-blue-200">Planos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Minhas Obras</h2>
+            <div class="flex space-x-2">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar obra..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center" id="novaObraBtn">
+                    <i class="fas fa-plus mr-2"></i> Nova Obra
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+                <div>
+                    <label for="statusFilter" class="block text-sm text-gray-600 mb-1">Status</label>
+                    <select id="statusFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="todos">Todos</option>
+                        <option value="ativo">Em andamento</option>
+                        <option value="planejamento">Em planejamento</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="pausado">Pausado</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="clienteFilter" class="block text-sm text-gray-600 mb-1">Cliente</label>
+                    <select id="clienteFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="todos">Todos</option>
+                        <option value="client1">Cliente 1</option>
+                        <option value="client2">Cliente 2</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="tipoFilter" class="block text-sm text-gray-600 mb-1">Tipo de Obra</label>
+                    <select id="tipoFilter" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="todos">Todos</option>
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="industrial">Industrial</option>
+                        <option value="infraestrutura">Infraestrutura</option>
+                    </select>
+                </div>
+                <div class="ml-auto">
+                    <label class="invisible block text-sm text-gray-600 mb-1">Visualização</label>
+                    <div class="flex border border-gray-300 rounded-md overflow-hidden">
+                        <button class="bg-blue-600 text-white px-3 py-1.5 focus:outline-none">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="bg-white text-gray-600 px-3 py-1.5 focus:outline-none hover:bg-gray-100">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem de versão Premium -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-start">
+            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+            <div>
+                <h3 class="font-semibold text-green-800">Versão Premium Ativa</h3>
+                <p class="text-green-700">Você está utilizando a versão Premium com acesso a todas as funcionalidades avançadas, incluindo cadastro de obras ilimitadas.</p>
+            </div>
+        </div>
+
+        <!-- Lista de Obras -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Obra 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="h-40 bg-gray-300 relative">
+                    <div class="temp-img obra-img obra-residencial w-full h-full"></div>
+                    <div class="absolute top-0 right-0 m-2">
+                        <span class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">Em andamento</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Residencial Flores</h3>
+                    <div class="flex items-center text-gray-600 mb-1">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Av. Paulista, 1000 - São Paulo/SP</span>
+                    </div>
+                    <div class="flex items-center text-gray-600 mb-3">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Cliente: Maria Santos</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-sm text-gray-500">Progresso</span>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">45% concluído</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Início: 10/01/2023</span>
+                        <a href="detalhes-obra.html?id=1" class="text-blue-600 hover:text-blue-800">
+                            Ver detalhes <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Obra 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="h-40 bg-gray-300 relative">
+                    <div class="temp-img obra-img obra-comercial w-full h-full"></div>
+                    <div class="absolute top-0 right-0 m-2">
+                        <span class="bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">Em planejamento</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Edifício Comercial Centro</h3>
+                    <div class="flex items-center text-gray-600 mb-1">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Rua Augusta, 500 - São Paulo/SP</span>
+                    </div>
+                    <div class="flex items-center text-gray-600 mb-3">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Cliente: Empresa ABC</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-sm text-gray-500">Progresso</span>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">10% concluído</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Início: 15/03/2023</span>
+                        <a href="detalhes-obra.html?id=2" class="text-blue-600 hover:text-blue-800">
+                            Ver detalhes <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adicionar Nova Obra (Card) -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center h-96">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-plus text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Adicionar Nova Obra</h3>
+                    <p class="text-gray-600 mb-4">Cadastre uma nova obra para gerenciar</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg" id="cardNovaObraBtn">
+                        Nova Obra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nova Obra -->
+    <div id="modalNovaObra" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <div class="flex items-center justify-between border-b p-4">
+                <h3 class="text-xl font-bold text-gray-800">Cadastrar Nova Obra</h3>
+                <button id="fecharModalBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <form id="novaObraForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="nomeObra" class="block text-gray-700 font-medium mb-2">Nome da Obra *</label>
+                            <input type="text" id="nomeObra" name="nomeObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="tipoObra" class="block text-gray-700 font-medium mb-2">Tipo de Obra *</label>
+                            <select id="tipoObra" name="tipoObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Selecione</option>
+                                <option value="residencial">Residencial</option>
+                                <option value="comercial">Comercial</option>
+                                <option value="industrial">Industrial</option>
+                                <option value="infraestrutura">Infraestrutura</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="enderecoObra" class="block text-gray-700 font-medium mb-2">Endereço *</label>
+                        <input type="text" id="enderecoObra" name="enderecoObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label for="cidadeObra" class="block text-gray-700 font-medium mb-2">Cidade *</label>
+                            <input type="text" id="cidadeObra" name="cidadeObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="estadoObra" class="block text-gray-700 font-medium mb-2">Estado *</label>
+                            <select id="estadoObra" name="estadoObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Selecione</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="MG">Minas Gerais</option>
+                                <!-- Outros estados... -->
+                            </select>
+                        </div>
+                        <div>
+                            <label for="cepObra" class="block text-gray-700 font-medium mb-2">CEP *</label>
+                            <input type="text" id="cepObra" name="cepObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="clienteObra" class="block text-gray-700 font-medium mb-2">Cliente *</label>
+                            <select id="clienteObra" name="clienteObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Selecione</option>
+                                <option value="1">Maria Santos</option>
+                                <option value="2">Empresa ABC</option>
+                                <option value="novo">+ Cadastrar novo cliente</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="statusObra" class="block text-gray-700 font-medium mb-2">Status *</label>
+                            <select id="statusObra" name="statusObra" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="planejamento">Em planejamento</option>
+                                <option value="ativo">Em andamento</option>
+                                <option value="pausado">Pausado</option>
+                                <option value="concluido">Concluído</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="dataInicio" class="block text-gray-700 font-medium mb-2">Data de Início *</label>
+                            <input type="date" id="dataInicio" name="dataInicio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label for="dataPrevisaoFim" class="block text-gray-700 font-medium mb-2">Previsão de Término *</label>
+                            <input type="date" id="dataPrevisaoFim" name="dataPrevisaoFim" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="responsavelTecnico" class="block text-gray-700 font-medium mb-2">Responsável Técnico *</label>
+                        <input type="text" id="responsavelTecnico" name="responsavelTecnico" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="descricaoObra" class="block text-gray-700 font-medium mb-2">Descrição da Obra</label>
+                        <textarea id="descricaoObra" name="descricaoObra" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Imagem da Obra</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                            <input type="file" id="imagemObra" name="imagemObra" class="hidden" accept="image/*">
+                            <label for="imagemObra" class="cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
+                                <p class="text-gray-600">Clique para fazer upload ou arraste a imagem</p>
+                                <p class="text-gray-500 text-sm">(Formatos aceitos: JPG, PNG - Max: 5MB)</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" id="cancelarNovaObra" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Cadastrar Obra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-blue-900 text-white py-6 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-blue-300">
+                <p>&copy; 2023 MD Engenharia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

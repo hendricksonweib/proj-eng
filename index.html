@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Engenharia - Construções e Gerenciamento de Projetos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/main.js" defer></script>
+    <style>
+        /* Estilo para exibir a logo temporariamente usando uma imagem embutida */
+        .md-logo {
+            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTAwcHgiIGhlaWdodD0iNTAwcHgiIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3QgeD0iNTAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzAwNzhENCI+PC9yZWN0PgogICAgICAgIDxyZWN0IHg9IjEzMCIgeT0iMTAwIiB3aWR0aD0iNjAiIGhlaWdodD0iMjUwIiBmaWxsPSIjMDA2OEM0Ij48L3JlY3Q+CiAgICAgICAgPHJlY3QgeD0iMjEwIiB5PSIxMDAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyNTAiIGZpbGw9IiMwMDU4QjQiPjwvcmVjdD4KICAgICAgICA8cGF0aCBkPSJNMzgwLDIyNSBDMzgwLDI4OCAzMzAsIDM0MCAyNjUsMzQwIEMyMDAsMzQwIDE1MCwyODggMTUwLDIyNSBDMTUwLDE2MiAyMDAsMTEwIDI2NSwxMTAgQzMzMCwxMTAgMzgwLDE2MiAzODAsMjI1IFoiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI0MCIgZmlsbD0ibm9uZSI+PC9wYXRoPgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0MTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzMzMiPgogICAgICAgICAgICBNRCBFTkdFTkhBUklBCiAgICAgICAgPC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjUwIiB5PSI0NTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNSIgZmlsbD0iIzMzMyI+CiAgICAgICAgICAgIENPTlNUUlVDw5VFUyBFIEdFUkVOQ0lBTUVOVE8gREUgUFJPSkVUT1MKICAgICAgICA8L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPg==');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 50px;
+            height: 50px;
+        }
+        
+        /* Imagens temporárias para a página */
+        .temp-img {
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .temp-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,120,212,0.2) 0%, rgba(0,0,0,0) 100%);
+        }
+        
+        .hero-img {
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <!-- Exibindo a logo usando a classe CSS que usa uma imagem embutida temporária -->
+                <div class="md-logo h-12 w-12 mr-3"></div>
+                <h1 class="text-2xl font-bold">MD Engenharia</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-blue-200 border-b-2 border-blue-200 pb-1">Início</a></li>
+                    <li><a href="obras.html" class="hover:text-blue-200">Minhas Obras</a></li>
+                    <li><a href="relatorios.html" class="hover:text-blue-200">Relatórios</a></li>
+                    <li><a href="cronograma.html" class="hover:text-blue-200">Cronograma</a></li>
+                    <li><a href="chat.html" class="hover:text-blue-200">Chat</a></li>
+                    <li><a href="planos.html" class="hover:text-blue-200">Planos</a></li>
+                </ul>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="login.html" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Entrar</a>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-blue-700 pb-4">
+            <ul class="container mx-auto px-4 space-y-2">
+                <li><a href="index.html" class="block py-2 text-blue-200">Início</a></li>
+                <li><a href="obras.html" class="block py-2 hover:text-blue-200">Minhas Obras</a></li>
+                <li><a href="relatorios.html" class="block py-2 hover:text-blue-200">Relatórios</a></li>
+                <li><a href="cronograma.html" class="block py-2 hover:text-blue-200">Cronograma</a></li>
+                <li><a href="chat.html" class="block py-2 hover:text-blue-200">Chat</a></li>
+                <li><a href="planos.html" class="block py-2 hover:text-blue-200">Planos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="bg-white rounded-lg shadow-md overflow-hidden mb-10">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-4">Gerencie suas obras com eficiência</h2>
+                    <p class="text-gray-600 mb-6">O GestãoObras é a solução completa para o gerenciamento de obras, com ferramentas para controle de cronograma, relatórios fotográficos e acompanhamento financeiro.</p>
+                    <div class="flex space-x-4">
+                        <a href="cadastro.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium">Começar Grátis</a>
+                        <a href="planos.html" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium">Ver Planos</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="temp-img hero-img w-full h-full" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2UwZTBlMCIvPjxwYXRoIGQ9Ik0wLDQwMEw4MDAsNDAwTDgwMCw2MDBMMCw2MDBaIiBmaWxsPSIjYzBjMGMwIi8+PHBhdGggZD0iTTAsMzUwTDgwMCwzNTBMODAwLDM4MEwwLDM4MFoiIGZpbGw9IiNhMGEwYTAiLz48cmVjdCB4PSIyMDAiIHk9IjEwMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwNzhENCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMjEwIiB5PSIxMjAiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjI2MCIgeT0iMTIwIiB3aWR0aD0iMzAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSIyMTAiIHk9IjE4MCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iMjYwIiB5PSIxODAiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjIxMCIgeT0iMjQwIiB3aWR0aD0iMzAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSIyNjAiIHk9IjI0MCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iMjEwIiB5PSIzMDAiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjI2MCIgeT0iMzAwIiB3aWR0aD0iMzAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI0MDAiIHk9IjUwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjM1MCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSI0MTAiIHk9IjgwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI0NzAiIHk9IjgwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI0MTAiIHk9IjE0MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iNDcwIiB5PSIxNDAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjQxMCIgeT0iMjAwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI0NzAiIHk9IjIwMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iNDEwIiB5PSIyNjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjQ3MCIgeT0iMjYwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI0MTAiIHk9IjMyMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iNDcwIiB5PSIzMjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjYwMCIgeT0iMTgwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjIyMCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDA3OEQ0IiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSI2MTAiIHk9IjIwMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iNjgwIiB5PSIyMDAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjYxMCIgeT0iMjUwIiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIGZpbGw9IiNlMGUwZTAiLz48cmVjdCB4PSI2ODAiIHk9IjI1MCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjZTBlMGUwIi8+PHJlY3QgeD0iNjEwIiB5PSIzMDAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgZmlsbD0iI2UwZTBlMCIvPjxyZWN0IHg9IjY4MCIgeT0iMzAwIiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIGZpbGw9IiNlMGUwZTAiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjUwIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik03MCw5MEw5MCwxMjBMMTMwLDgwIiBzdHJva2U9IiMwMDc4RDQiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==');"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Funcionalidades Principais</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-building text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Gestão de Obras</h3>
+                    <p class="text-gray-600">Cadastre e gerencie suas obras com facilidade, organizando informações essenciais.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-camera text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Relatórios Fotográficos</h3>
+                    <p class="text-gray-600">Crie relatórios detalhados com fotos e anotações sobre o progresso das obras.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-calendar-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Cronogramas</h3>
+                    <p class="text-gray-600">Gerencie o cronograma das suas obras com visualização em formato Gantt.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Gestão Financeira</h3>
+                    <p class="text-gray-600">Acompanhe o fluxo financeiro e controle orçamentos das suas obras.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plans Comparison -->
+        <section class="bg-white rounded-lg shadow-md p-8 mb-10">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Escolha o Plano Ideal para Você</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Trial Plan -->
+                <div class="border rounded-lg overflow-hidden">
+                    <div class="bg-gray-100 p-6">
+                        <h3 class="text-xl font-bold text-center mb-2">Versão Trial</h3>
+                        <p class="text-center text-gray-600 mb-4">Ideal para pequenos projetos</p>
+                        <p class="text-center text-3xl font-bold">Grátis</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Cadastro de até 2 obras simultâneas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Relatórios fotográficos simples</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Cronograma básico</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Notificações automáticas</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <a href="cadastro.html" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-medium">Começar Agora</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Premium Plan -->
+                <div class="border border-blue-500 rounded-lg overflow-hidden relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMENDADO</div>
+                    <div class="bg-blue-50 p-6">
+                        <h3 class="text-xl font-bold text-center mb-2">Versão Premium</h3>
+                        <p class="text-center text-gray-600 mb-4">Para profissionais e empresas</p>
+                        <p class="text-center text-3xl font-bold">R$ 99,90<span class="text-sm text-gray-600">/mês</span></p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Obras ilimitadas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Relatórios avançados</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Cronograma completo com Gantt</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Gestão financeira completa</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Portal do cliente</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Chat interno e agendamento</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <a href="planos.html" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-medium">Assinar Premium</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">MD Engenharia</h3>
+                    <p class="text-blue-200">Construções e Gerenciamento de Projetos com excelência.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-blue-200 hover:text-white">Início</a></li>
+                        <li><a href="recursos.html" class="text-blue-200 hover:text-white">Recursos</a></li>
+                        <li><a href="planos.html" class="text-blue-200 hover:text-white">Planos</a></li>
+                        <li><a href="contato.html" class="text-blue-200 hover:text-white">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contato</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> contato@gestaoobras.com</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> (11) 1234-5678</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Redes Sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-600">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-8 pt-6 text-center text-blue-300">
+                <p>&copy; 2023 GestãoObras. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
